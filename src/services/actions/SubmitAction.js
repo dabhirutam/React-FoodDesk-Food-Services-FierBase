@@ -166,11 +166,11 @@ export const FavoriteRecipeAsync = (id) => {
 
     return async disptch => {
         const res = await getDoc(doc(db, "recipes", `${id}`));
-        
+
         if (res.exists()) {
             let newRec = res.data();
             newRec.favorite = true;
-            
+
             await setDoc(doc(db, "recipes", `${id}`), newRec);
             await addDoc(collection(db, "favorites"), newRec);
 

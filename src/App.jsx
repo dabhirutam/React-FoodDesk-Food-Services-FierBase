@@ -5,11 +5,13 @@ import AddData from "./pages/AddData";
 import EditData from "./pages/EditData";
 import SingleViewData from "./pages/SingleViewData";
 import FavoriteData from "./pages/FavoriteData";
+import PopupModal from "./componants/PopupModal";
 
 function App() {
 
   return (
     <>
+      <PopupModal />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ViewData />}></Route>

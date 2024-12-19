@@ -12,6 +12,8 @@ const EditData = () => {
     const [formData, setFormData] = useState({
         id: '',
         name: '',
+        category: '',
+        meal: '',
         prep_time: '',
         cook_time: '',
         serving: '',
@@ -71,6 +73,33 @@ const EditData = () => {
                                 <Col xs={12}>
                                     <Form.Group>
                                         <Form.Control type="text" name="name" placeholder="Enter Recipe Name" value={formData.name} onChange={handleChange} />
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12}>
+                                    <Form.Group>
+                                        <Form.Select name="category" onChange={handleChange}>
+                                            <option value="">Choose Cuisine Category</option>
+                                            <option value="Indian">Indian</option>
+                                            <option value="Mexican">Mexican</option>
+                                            <option value="Italian">Italian</option>
+                                            <option value="Chinese">Chinese</option>
+                                            <option value="Japanese">Japanese</option>
+                                            <option value="American">American</option>
+                                            <option value="French">French</option>
+                                        </Form.Select>
+                                    </Form.Group>
+                                </Col>
+                                <Col xs={12}>
+                                    <Form.Group>
+                                        <Form.Select name="meal" onChange={handleChange}>
+                                            <option value="">Choose Meal</option>
+                                            <option value="Breakfast">Breakfast</option>
+                                            <option value="Lunch">Lunch</option>
+                                            <option value="Dinner">Dinner</option>
+                                            <option value="Snacks">Snacks</option>
+                                            <option value="Desserts">Desserts</option>
+                                            <option value="Beverages">Beverages</option>
+                                        </Form.Select>
                                     </Form.Group>
                                 </Col>
                                 <Col xs={12}>

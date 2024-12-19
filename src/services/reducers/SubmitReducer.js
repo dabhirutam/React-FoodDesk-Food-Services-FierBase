@@ -6,6 +6,7 @@ const intialState = {
     isCreated: false,
     isLoading: false,
     isUpdated: false,
+    isDelete: false
 }
 
 const SubmitReducer = (state = intialState, action) => {
@@ -17,6 +18,7 @@ const SubmitReducer = (state = intialState, action) => {
                 recipes: action.payload,
                 isCreated: false,
                 isUpdated: false,
+                isDelete: false,
                 recipe: null
             }
 
@@ -49,6 +51,7 @@ const SubmitReducer = (state = intialState, action) => {
                 ...state,
                 recipes: action.payload
             }
+
 
         default:
             return state;

@@ -7,6 +7,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { FilterRecipeAsync } from '../services/actions/SubmitAction';
 
+// eslint-disable-next-line react/prop-types
 function Header({ navs }) {
 
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ function Header({ navs }) {
                         <Form.Control type="search" placeholder="Search Recipe" className="me-2 py-2" aria-label="Search" onChange={(e) => dispatch(FilterRecipeAsync(e.target.value))}/>
                         <Button variant='light' className='fs-5' onClick={() => navigate('/favorite')}><i className="bi bi-star-fill"></i></Button>
                         {
+                            // eslint-disable-next-line react/prop-types
                             navs.map((nav) => {
                                 return (
                                     <Button key={nav.p} variant='light' className='fs-5' onClick={() => navigate(`${nav.p}`)}><i className={`bi bi-${nav.i}`}></i></Button>
