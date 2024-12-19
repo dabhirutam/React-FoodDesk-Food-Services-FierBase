@@ -1,0 +1,4 @@
+.table-primary{
+    --bs-table-bg: #1D6FF8 !important;
+    --bs-table-color: #fff !important;
+}
