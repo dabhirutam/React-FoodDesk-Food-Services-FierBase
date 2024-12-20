@@ -2,8 +2,10 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import Header from "../componants/Header";
 import i1 from '../images/clock.png';
 import i2 from '../images/restaurant.png';
-import i3 from '../images/group.png';
-import i4 from '../images/serving-dish.png';
+import i3 from '../images/french-fries.png';
+import i4 from '../images/pan.png';
+import i5 from '../images/group.png';
+import i6 from '../images/serving-dish.png';
 import { useEffect, useState } from "react";
 import { SingleRecipeAsync } from "../services/actions/SubmitAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,13 +18,15 @@ const SingleViewData = () => {
 
     const [singleRecipe, setSingleRecipe] = useState({
         name: '',
+        category: '',
+        meal: '',
         prep_time: '',
         cook_time: '',
         serving: '',
         serv_size: '',
         description: '',
         steps: '',
-        photo: ''
+        photo: '',
     })
     const navs = [
         {
@@ -32,6 +36,33 @@ const SingleViewData = () => {
         {
             p: '/add',
             i: 'plus-circle'
+        }
+    ];
+
+    const icons = [
+        {
+            i: i1,
+            t: 'prep_time'
+        },
+        {
+            i: i2,
+            t: 'category'
+        },
+        {
+            i: i3,
+            t: 'meal'
+        },
+        {
+            i: i4,
+            t: 'cook_time'
+        },
+        {
+            i: i5,
+            t: 'serving'
+        },
+        {
+            i: i6,
+            t: 'serv_size'
         }
     ];
 
@@ -55,18 +86,18 @@ const SingleViewData = () => {
                         <Card className="border-0">
                             <Card.Img variant="top" src={singleRecipe.photo} />
                             <Card.Body className="p-0">
-                                <div className="d-flex align-items-center column-gap-1 mt-1">
+                                <div className="d-flex flex-wrap align-items-center mt-1 row-gap-1">
                                     {
-                                        ['prep_time', 'cook_time', 'serving', 'serv_size'].map((item, index) => {
+                                        icons.map((item, index) => {
                                             return (
-                                                <Col key={item}>
+                                                <Col md={4} key={item.t} className={`${index == 1 || index == 4 ? 'px-1' : ''}`}>
                                                     <div className="d-flex align-items-center p-2 px-3 bg-secondary bg-opacity-10">
                                                         <Col md={4} className="text-center">
-                                                            <img style={{ width: '60%' }} src={index==0 ? i1 : index==1 ? i2 : index==2 ? i3 : i4} alt="" />
+                                                            <img style={{ width: '60%' }} src={item.i} alt="" />
                                                         </Col>
                                                         <Col md={8}>
-                                                            <h5 className="text-capitalize">{item.replace('_', ' ')}</h5>
-                                                            <p className="m-0 text-secondary">{singleRecipe[item]} {index==0 || index==1 ? 'Mins' : index==2 ? 'Person' : ''}</p>
+                                                            <h5 className="text-capitalize">{item.t.replace('_', ' ')}</h5>
+                                                            <p className="m-0 text-secondary">{singleRecipe[item.t]} {index == 0 || index == 3 ? 'Mins' : index == 4 ? 'Person' : ''}</p>
                                                         </Col>
                                                     </div>
                                                 </Col>

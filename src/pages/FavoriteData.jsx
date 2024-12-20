@@ -1,13 +1,16 @@
 import { useEffect } from "react";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { DeleteRecipeAsync, FavoriteRecipeAsync, ViewFavoriteRecipeAsync, ViewRecipeAsync } from "../services/actions/SubmitAction";
+import { DeleteRecipeAsync, ViewFavoriteRecipeAsync } from "../services/actions/SubmitAction";
 import Header from "../componants/Header";
+import i1 from '../images/clock.png';
+import i2 from '../images/restaurant.png';
+import i3 from '../images/serving-dish.png'
 
 const FavoriteData = () => {
 
-    const { isLoading, favorites } = useSelector((state) => state.SubmitReducer);
+    const { favorites } = useSelector((state) => state.SubmitReducer);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -32,58 +35,41 @@ const FavoriteData = () => {
             <Header navs={navs} />
             <Container>
                 <Row className="text-center pt-5">
-                    <Col md={12} className="p-4 rounded-4 border border-primary text-center">
-                        <h2 className="mb-5">Favorite Recipe History</h2>
-                        <div className="overflow-x-auto">
-                            {
-                                isLoading ?
-                                    <div className="text-center">
-                                        <div className="spinner-border text-info" role="status"></div>
-                                    </div>
-                                    :
-                                    <Table bordered hover style={{ minWidth: '1000px' }}>
-                                        <thead className="table-primary">
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Image</th>
-                                                <th>Name</th>
-                                                <th>Prep Time</th>
-                                                <th>Cook Time</th>
-                                                <th>Serving</th>
-                                                <th>Serv Size</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                favorites.map((recipe, index) => {
-                                                    return (
-                                                        <tr key={recipe.id}>
-                                                            <td>{index + 1}</td>
-                                                            <td><img style={{ height: '40px' }} src={recipe.photo} alt="" /></td>
-                                                            <td>{recipe.name}</td>
-                                                            <td>{recipe.prep_time}</td>
-                                                            <td>{recipe.cook_time}</td>
-                                                            <td>{recipe.serving}</td>
-                                                            <td>{recipe.serv_size}</td>
-                                                            <td>
-                                                                <Button className="btn btn-danger" onClick={() => dispatch(DeleteRecipeAsync(recipe.id,'favorites'))}>
-                                                                    <i className="bi bi-trash-fill"></i>
-                                                                </Button>
-                                                                &nbsp; || &nbsp;
-                                                                <Button className="btn btn-success" onClick={() => navigate(`/singleView/${recipe.id}`)}>
-                                                                <i className="bi bi-eye-fill"></i>
-                                                                </Button>                
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })
-                                            }
-                                        </tbody>
-                                    </Table>
-                            }
-                        </div>
-                    </Col>
+                    {
+                        favorites.map((recipe) => {
+                            return (
+                                <Col key={recipe.id} md={4}>
+                                    <Card className="p-3 rounded-4 shadow">
+                                        <Card.Img className="rounded-3" variant="top" src={recipe.photo} />
+                                        <Card.Body>
+                                            <Card.Text className="text-danger">{recipe.meal}</Card.Text>
+                                            <Card.Title>{recipe.name}</Card.Title>
+                                            <div className="d-flex align-items-center text-secondary fw-medium my-4" style={{ fontSize: '17px' }}>
+                                                {
+                                                    ["prep_time", "category", "serv_size"].map((item, i) => {
+                                                        return (
+                                                            <Col key={item} md={4} className="d-flex align-items-center gap-2 justify-content-center">
+                                                                <img style={{ width: '17px' }} src={i == 0 ? i1 : i == 1 ? i2 : i3} /> {recipe[item]} {i == 0 ? 'Mins' : ''}
+                                                            </Col>
+                                                        )
+
+                                                    })
+                                                }
+                                            </div>
+                                            <div className="d-flex align-items-center justify-content-center gap-4">
+                                                <Button className="btn btn-danger" onClick={() => dispatch(DeleteRecipeAsync(recipe.id, 'favorites'))}>
+                                                    <i className="bi bi-trash-fill"></i>
+                                                </Button>
+                                                <Button className="btn btn-success" onClick={() => navigate(`/singleView/${recipe.id}`)}>
+                                                    <i className="bi bi-eye-fill"></i>
+                                                </Button>
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            )
+                        })
+                    }
                 </Row>
             </Container>
         </>
